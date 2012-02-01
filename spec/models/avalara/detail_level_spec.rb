@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Avalara::DetailLevel do
+describe Avalara::Request::DetailLevel do
   let(:params) { Factory.attributes_for(:detail_level) }
   let(:detail_level) { Factory.build_via_new(:detail_level) }
 

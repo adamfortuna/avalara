@@ -1,7 +1,10 @@
 # encoding: UTF-8
 
 module Avalara
-  class Request
-    
+  module Request
+    autoload :Address, 'avalara/request/address'
+    autoload :DetailLevel, 'avalara/request/detail_level'
+    autoload :Invoice, 'avalara/request/invoice'
+    autoload :Line, 'avalara/request/line'
   end
 end

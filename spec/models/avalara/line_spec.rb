@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Avalara::Line do
+describe Avalara::Request::Line do
   let(:params) { Factory.attributes_for(:line) }
   let(:line) { Factory.build_via_new(:line) }
 

@@ -2,12 +2,12 @@
 
 require 'spec_helper'
 
-describe Avalara::GetTaxRequest do
-  let(:params) { Factory.attributes_for(:get_tax_request) }
-  let(:get_tax_request) { Factory.build_via_new(:get_tax_request) }
+describe Avalara::Request::Invoice do
+  let(:params) { Factory.attributes_for(:invoice) }
+  let(:invoice) { Factory.build_via_new(:invoice) }
 
   context 'sets all attributes' do
-    subject { get_tax_request }
+    subject { invoice }
 
     its(:CustomerCode) { should == params[:customer_code] }
     its(:DocDate) { should == params[:doc_date] }
@@ -24,5 +24,10 @@ describe Avalara::GetTaxRequest do
     its(:Lines) { should == params[:lines] }
     its(:Addresses) { should == params[:addresses] }
     its(:ReferenceCode) { should == params[:reference_code] }
+  end
+  
+  context 'converts nested objects to json' do
+    subject { invoice.to_json }
+    it { should_not be_nil }
   end
 end

@@ -4,6 +4,7 @@ PATH
     Avalara (0.0.1)
       hashie
       httparty
+      multi_json
 
 GEM
   remote: http://rubygems.org/

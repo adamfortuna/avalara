@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Avalara::Address do
+describe Avalara::Request::Address do
   let(:params) { Factory.attributes_for(:address) }
   let(:address) { Factory.build_via_new(:address) }
 

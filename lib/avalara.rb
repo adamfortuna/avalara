@@ -4,12 +4,11 @@ require 'avalara/version'
 require 'avalara/errors'
 require 'avalara/configuration'
 
-require 'avalara/address'
-require 'avalara/line'
-require 'avalara/detail_level'
-require 'avalara/get_tax_request'
+require 'avalara/parser'
+require 'avalara/api'
 
-require 'httparty'
+require 'avalara/request'
+require 'avalara/response'
 
 module Avalara
 
@@ -55,41 +54,46 @@ module Avalara
   def self.version=(version)
     configuration.version = version
   end
+  
+  def self.geographical_tax(latitude, longitude, sales_amount)
+    raise NotImplementedError
+    uri = [configuration.endpoint, configuration.version, "tax", "#{latitude},#{longitude}", "get"].join["/"]
 
-  # https://rest.avalara.net/1.0/tax/get
-  # Request Body
-  # {
-  # "DocDate": "2011-05-11",
-  # "CustomerCode": "CUST1",
-  # "Addresses":
-  # [
-  # {
-  # "AddressCode": "1",
-  # }
-  def self.get_tax(get_tax_request)
-    uri = "#{configuration.endpoint}/#{configuration.version}/tax/get"
-    response = ::HTTParty.post(uri, {
-      :query => get_tax_request,
-      :headers => request_headers(get_tax_request.to_s.length.to_s),
-      :basic_auth => authentication
-    })
+    response = API.get(uri, 
+      :headers => API.headers_for('0'),
+      :query => { :saleamount => sales_amount }
+    )
   rescue Timeout::Error
     puts "Timed out"
     raise TimeoutError
   end
+    
+  def self.get_tax(invoice)
+    uri = [configuration.endpoint, configuration.version, 'tax', 'get'].join('/')
+
+    response = API.post(uri, 
+      :body => invoice.to_json,
+      :headers => API.headers_for(invoice.to_json.length),
+      :basic_auth => authentication
+    )
+
+    return case response.code
+      when 200..299
+        Response::Invoice.new(response)
+      when 400..499
+        Error.new(response)
+      when 500.599
+        Error.new(response)
+      else
+        Error.new(response)
+    end
+  rescue Timeout::Error
+    Error.new("Timeout")
+  end
   
   private
-  
-  def self.request_headers(length)
-    { 'Accept' => 'application/json', 'User-Agent' => user_agent_string, "Content-Type" => 'text/json', "Content-Length" => length }
-  end
-  
+
   def self.authentication
-    { :username => configuration.username, :password => configuration.password }
+    { :username => username, :password => password}
   end
-  
-  def self.user_agent_string
-    "avalara/#{Avalara::VERSION} (Rubygems; Ruby #{RUBY_VERSION} #{RUBY_PLATFORM})"
-  end
-  
 end

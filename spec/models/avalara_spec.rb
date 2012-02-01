@@ -93,14 +93,77 @@ describe Avalara do
     end
   end
 
-  describe '.get_tax', focus: true do
-    let(:get_tax_request) { Factory.build_via_new(:get_tax_request) }
-    subject { Avalara.get_tax(get_tax_request) }
+  describe '.get_tax' do
+    let(:invoice) { Factory.build_via_new(:invoice) }
+    let(:request) { Avalara.get_tax(invoice) }
+    subject { request }
     
     use_vcr_cassette 'get_tax', :record => :new_episodes
     
-    it "returns a string" do
-      subject.should == "Asdfas"
+    it { should be_kind_of Avalara::Response::Invoice }
+    
+    its(:doc_code) { should == "5b0185af-e88b-4307-8cf5-ff693fb28533" }
+    its(:doc_date) { should == "2011-05-11" }
+    its(:result_code) { should == "Success" }
+    its(:tax_date) { should == "2011-05-11" }
+    its(:timestamp) { should == "2012-02-01T18:07:09.9357655Z" }
+    its(:total_amount) { should == "10" }
+    its(:total_discount) { should == "0" }
+    its(:total_exemption) { should == "10" }
+    its(:total_tax) { should == "0" }
+    its(:total_tax_calculated) { should == "0" }
+    
+    it 'returns 1 tax line' do
+      subject.tax_lines.length.should == 1
+    end
+
+    it 'returns 1 tax address' do
+      subject.tax_addresses.length.should == 1
+    end
+    
+    context 'the returned tax line' do
+      let(:tax_line) { request.tax_lines.first }
+      subject { tax_line }
+      
+      its(:line_no) { should == "1" }
+      its(:tax_code) { should == "P0000000" }
+      its(:taxability) { should == "true" }
+      its(:taxable) { should == "0" }
+      its(:rate) { should == "0" }
+      its(:tax) { should == "0" }
+      its(:discount) { should == "0" }
+      its(:tax_calculated) { should == "0" }
+      its(:exemption) { should == "10" }
+      
+      it 'returns 1 tax detail' do
+        subject.tax_details.length.should == 1
+      end
+      
+      context 'the returned tax detail' do
+        subject { tax_line.tax_details.first }
+
+        its(:taxable) { should == "0" }
+        its(:rate) { should == "0" }
+        its(:tax) { should == "0" }
+        its(:region) { should == "WA" }
+        its(:country) { should == "US" }
+        its(:juris_type) { should == "State" }
+        its(:juris_name) { should == "WASHINGTON" }
+        its(:tax_name) { should == "WA STATE TAX" }
+      end
+    end
+  end
+  
+  describe '.geographical_tax' do
+    let(:latitude) { '47.627935' }
+    let(:longitude) { '-122.51702' }
+    let(:sales_amount) { 100 }
+
+    subject { Avalara.geographical_tax(latitude, longitude, sales_amount) }
+    use_vcr_cassette 'geographical_tax_no_sales', :record => :new_episodes
+  
+    it "returns a rate of 0" do
+      expect { subject }.to raise_error(Avalara::NotImplementedError)
     end
   end
 end
