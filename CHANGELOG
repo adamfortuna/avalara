@@ -1,1 +1,5 @@
-0.0.1 - January 31, 2011 - Rough draft of working
+= 0.0.1 - February 3, 2012 - Initial Release with get_tax call
+
+Not much in the way of features so far, but the rough draft of the get_tax call is in,
+as well as error and warning message handling. Still need to update the docs with it
+once an API to the gem is finalized.
