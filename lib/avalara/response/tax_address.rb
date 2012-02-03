@@ -1,9 +1,8 @@
 # encoding: UTF-8
-require 'hashie/trash'
 
 module Avalara
   module Response
-    class TaxAddress < ::Hashie::Trash
+    class TaxAddress < Avalara::Types::Stash
       property :address, :from => :Address
       property :address_code, :from => :AddressCode
       property :city, :from => :City

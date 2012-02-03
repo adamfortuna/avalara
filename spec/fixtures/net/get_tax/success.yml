@@ -5,9 +5,9 @@
     uri: https://%{API_USERNAME}:%{API_PASSWORD}@rest.avalara.net:443/1.0/tax/get
     body: |-
       {
-        "CustomerCode": "CUST1",
-        "DocDate": "2011-05-11",
-        "CompanyCode": "83",
+        "CustomerCode": 1,
+        "DocDate": "2012-01-01",
+        "CompanyCode": 83,
         "Lines": [
           {
             "LineNo": "1",
@@ -28,11 +28,11 @@
       }
     headers: 
       date: 
-      - Wed, 01 Feb 2012 18:07:12 GMT
+      - Thu, 02 Feb 2012 15:20:51 GMT
       user-agent: 
       - avalara/0.0.1 (Rubygems; Ruby 1.9.2 x86_64-darwin11.0.0)
       content-length: 
-      - "381"
+      - "373"
   response: !ruby/struct:VCR::Response 
     status: !ruby/struct:VCR::ResponseStatus 
       code: 200
@@ -49,21 +49,21 @@
       x-powered-by: 
       - ASP.NET
       date: 
-      - Wed, 01 Feb 2012 18:07:09 GMT
+      - Thu, 02 Feb 2012 15:20:47 GMT
       content-length: 
-      - "877"
+      - "885"
     body: |
       {
-      "DocCode": "5b0185af-e88b-4307-8cf5-ff693fb28533",
-      "DocDate": "2011-05-11",
-      "Timestamp": "2012-02-01T18:07:09.9357655Z",
+      "DocCode": "1402892f-c3f3-4786-b976-622a0c622cf4",
+      "DocDate": "2012-01-01",
+      "Timestamp": "2012-02-02T15:20:47.5076773Z",
       "TotalAmount": "10",
       "TotalDiscount": "0",
       "TotalExemption": "10",
       "TotalTaxable": "0",
       "TotalTax": "0",
       "TotalTaxCalculated": "0",
-      "TaxDate": "2011-05-11",
+      "TaxDate": "2012-01-01",
       "TaxLines": [
       {
       "LineNo": "1",
@@ -91,14 +91,14 @@
       ,
       "TaxAddresses": [
       {
-      "Address": "435 Ericksen Ave NE",
+      "Address": "435 ERICKSEN AVE NE STE 250",
       "AddressCode": "1",
-      "City": "Bainbridge Island",
+      "City": "BAINBRIDGE ISLAND",
       "Country": "US",
-      "PostalCode": "98110-1896",
+      "PostalCode": "98110-2876",
       "Region": "WA",
-      "TaxRegionId": "1048695",
-      "JurisCode": "5300003736"}
+      "TaxRegionId": "2109716",
+      "JurisCode": "5303503736"}
       ]
       ,
       "ResultCode": "Success"}

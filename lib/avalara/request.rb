@@ -6,5 +6,6 @@ module Avalara
     autoload :DetailLevel, 'avalara/request/detail_level'
     autoload :Invoice, 'avalara/request/invoice'
     autoload :Line, 'avalara/request/line'
+    autoload :Message, 'avalara/request/message'
   end
 end

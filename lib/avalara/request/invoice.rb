@@ -1,12 +1,12 @@
 # encoding: UTF-8
-require 'hashie/trash'
 require 'multi_json'
 
 module Avalara
   module Request
     # Same as GetTaxRequest
-    class Invoice < ::Hashie::Trash
-    
+    class Invoice < Avalara::Types::Stash
+      coerce_key :DocDate, Avalara::Types::Date
+
       # Set outgoing
       property :CustomerCode, :from => :customer_code
       property :DocDate, :from => :doc_date
@@ -23,6 +23,20 @@ module Avalara
       property :Lines, :from => :lines
       property :Addresses, :from => :addresses
       property :ReferenceCode, :from => :reference_code
+
+      def addresses=(addresses)
+        self.Addresses = []
+        addresses.each do |address|
+          self.Addresses << Address.new(address)
+        end
+      end
+
+      def lines=(lines)
+        self.Lines = []
+        lines.each do |line|
+          self.Lines << Line.new(line)
+        end
+      end
 
       def to_json
         MultiJson.encode(self.to_hash, :pretty => true)

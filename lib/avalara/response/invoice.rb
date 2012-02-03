@@ -1,11 +1,8 @@
 # encoding: UTF-8
-require 'hashie/trash'
 
 module Avalara
   module Response
-    class Invoice < ::Hashie::Trash
-    
-      # Set outgoing
+    class Invoice < Avalara::Types::Stash
       property :doc_code, :from => :DocCode
       property :doc_date, :from => :DocDate
       property :timestamp, :from => :Timestamp
@@ -19,6 +16,18 @@ module Avalara
       property :tax_lines, :from => :TaxLines
       property :tax_addresses, :from => :TaxAddresses
       property :result_code, :from => :ResultCode
+      property :messages, :from => :Messages
+
+      def success?
+        result_code == 'Success'
+      end
+      
+      def Messages=(new_messages)
+        self.messages = []
+        new_messages.each do |message|
+          self.messages << Message.new(message)
+        end
+      end
     
       def TaxLines=(lines)
         self.tax_lines = []

@@ -4,9 +4,9 @@ require 'avalara/version'
 require 'avalara/errors'
 require 'avalara/configuration'
 
-require 'avalara/parser'
 require 'avalara/api'
 
+require 'avalara/types'
 require 'avalara/request'
 require 'avalara/response'
 
@@ -69,7 +69,7 @@ module Avalara
   end
     
   def self.get_tax(invoice)
-    uri = [configuration.endpoint, configuration.version, 'tax', 'get'].join('/')
+    uri = [endpoint, version, 'tax', 'get'].join('/')
 
     response = API.post(uri, 
       :body => invoice.to_json,
@@ -80,15 +80,17 @@ module Avalara
     return case response.code
       when 200..299
         Response::Invoice.new(response)
-      when 400..499
-        Error.new(response)
-      when 500.599
-        Error.new(response)
+      when 400..599
+        raise ApiError.new(Response::Invoice.new(response))
       else
-        Error.new(response)
+        raise ApiError.new(response)
     end
-  rescue Timeout::Error
-    Error.new("Timeout")
+  rescue Timeout::Error => e
+    raise TimeoutError.new(e)
+  rescue ApiError => e
+    raise e
+  rescue Exception => e
+    raise Error.new(e)
   end
   
   private

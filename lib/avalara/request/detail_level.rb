@@ -1,10 +1,8 @@
 # encoding: UTF-8
-require 'hashie/trash'
 
 module Avalara
   module Request
-    class DetailLevel < ::Hashie::Trash
-    
+    class DetailLevel < Avalara::Types::Stash
       property :Line, :from => :line
       property :Summary, :from => :summary
       property :Document, :from => :document

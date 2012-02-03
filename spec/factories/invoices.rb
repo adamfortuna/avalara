@@ -1,7 +1,7 @@
 Factory.define :invoice, :class => Avalara::Request::Invoice do |c|
-  c.customer_code "CUST1"
-  c.doc_date "2011-05-11"
-  c.company_code "83"
+  c.customer_code 1
+  c.doc_date Time.now
+  c.company_code 83
   # c.commit "commit"
   # c.customer_usage_type "customer_usage_type"
   # c.discount "discount"

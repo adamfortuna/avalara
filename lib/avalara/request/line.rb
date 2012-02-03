@@ -1,10 +1,8 @@
 # encoding: UTF-8
-require 'hashie/trash'
 
 module Avalara
   module Request
-    class Line < ::Hashie::Trash
-    
+    class Line < Avalara::Types::Stash
       property :LineNo, :from => :line_no, :required => true
       property :DestinationCode, :from => :destination_code, :required => true
       property :OriginCode, :from => :origin_code, :required => true

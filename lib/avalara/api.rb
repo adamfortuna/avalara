@@ -1,5 +1,6 @@
 # encoding: UTF-8
 require 'httparty'
+require 'avalara/parser'
 
 module Avalara
   class API

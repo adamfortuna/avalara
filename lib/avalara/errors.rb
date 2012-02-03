@@ -2,7 +2,7 @@
 
 module Avalara
   Error = Class.new(StandardError)
-  InvalidObjectError = Class.new(Error)
   TimeoutError = Class.new(Error)
   NotImplementedError = Class.new(Error)
+  ApiError = Class.new(Error)
 end

@@ -10,7 +10,7 @@ describe Avalara::Request::Invoice do
     subject { invoice }
 
     its(:CustomerCode) { should == params[:customer_code] }
-    its(:DocDate) { should == params[:doc_date] }
+    its(:DocDate) { should == Avalara::Types::Date.coerce(params[:doc_date]) }
     its(:CompanyCode) { should == params[:company_code] }
     its(:Commit) { should == params[:commit] }
     its(:CustomerUsageType) { should == params[:customer_usage_type] }

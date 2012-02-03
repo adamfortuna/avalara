@@ -1,9 +1,8 @@
 # encoding: UTF-8
-require 'hashie/trash'
 
 module Avalara
   module Response
-    class TaxDetail < ::Hashie::Trash
+    class TaxDetail < Avalara::Types::Stash
       property :taxable, :from => :Taxable
       property :rate, :from => :Rate
       property :tax, :from => :Tax

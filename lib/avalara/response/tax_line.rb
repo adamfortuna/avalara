@@ -1,9 +1,8 @@
 # encoding: UTF-8
-require 'hashie/trash'
 
 module Avalara
   module Response
-    class TaxLine < ::Hashie::Trash
+    class TaxLine < Avalara::Types::Stash
       property :line_no, :from => :LineNo
       property :tax_code, :from => :TaxCode
       property :taxability, :from => :Taxability
