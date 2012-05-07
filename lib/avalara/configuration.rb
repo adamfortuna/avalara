@@ -10,7 +10,9 @@ class Avalara::Configuration
   ##
   # Public: Get the API endpoint used by the configuration.  Unless explicitly
   # set, the endpoint will default to the official production endpoint at
-  # 'https://avatax.avalara.net'.
+  # 'https://rest.avalara.net'.
+  #
+  # If you want to set this to the test endpoint, use 'https://development.avalara.net' 
   #
   # Returns the String for the API endpoint.
   #
