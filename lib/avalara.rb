@@ -69,6 +69,8 @@ module Avalara
       :query      => {:saleamount => sales_amount},
       :basic_auth => authentication
     )
+
+    Avalara::Response::Tax.new(response)
   rescue Timeout::Error
     puts "Timed out"
     raise TimeoutError
