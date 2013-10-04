@@ -1,3 +1,8 @@
+# 0.0.3 - October 4, 2013 - Updated multi_json gem
+
+The multi_json gem was way out of date, but https://github.com/imajes
+updated it. We also moved over to using Travis for builds.
+
 # 0.0.2 - May 7, 2012 - Updated tests for test endpoint.
 
 Looks like the tests were initally run against the production database
