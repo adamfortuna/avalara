@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'hashie'
   s.add_dependency 'httparty'
-  s.add_dependency 'multi_json', '~> 1.4'
+  s.add_dependency 'multi_json'
 
   s.add_development_dependency 'vcr'
   s.add_development_dependency 'webmock'
