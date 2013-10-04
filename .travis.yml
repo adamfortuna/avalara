@@ -8,3 +8,5 @@ before_script:
   - cp spec/avalara.yml.example spec/avalara.yml
 script:
   - bin/rspec .
+notifications:
+  email: false
