@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     avalara (0.0.3)
-      hashie
+      hashie (~> 2)
       httparty
       multi_json
 
