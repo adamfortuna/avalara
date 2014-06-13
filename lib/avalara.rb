@@ -85,9 +85,16 @@ module Avalara
       :basic_auth => authentication
     )
 
+    response.symbolize_keys!
+    response[:TaxAddresses].each {|h| h.symbolize_keys!}
+    response[:TaxLines].each do |h|
+      h.symbolize_keys!
+      h[:TaxDetails].each { |a| a.symbolize_keys! }
+    end
     return case response.code
       when 200..299
-        Response::Invoice.new(response.symbolize_keys)
+
+        Response::Invoice.new(response)
       when 400..599
         raise ApiError.new(Response::Invoice.new(response.symbolize_keys))
       else
