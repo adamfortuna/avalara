@@ -84,14 +84,14 @@ module Avalara
       :headers => API.headers_for(invoice.to_json.length),
       :basic_auth => authentication
     )
-    response = response.symbolize_keys
+
     return case response.code
       when 200..299
-        Response::Invoice.new(response)
+        Response::Invoice.new(response.symbolize_keys)
       when 400..599
-        raise ApiError.new(Response::Invoice.new(response))
+        raise ApiError.new(Response::Invoice.new(response.symbolize_keys))
       else
-        raise ApiError.new(response)
+        raise ApiError.new(response.symbolize_keys)
     end
   rescue Timeout::Error => e
     raise TimeoutError.new(e)
