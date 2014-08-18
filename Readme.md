@@ -1,8 +1,15 @@
-# Avalara gem
+# Avalara Gem
 
 This API provides access to the [Avalara](http://www.avalara.com/) AvaTax API.
 
 [![Build Status](https://travis-ci.org/adamfortuna/avalara.png)](https://travis-ci.org/adamfortuna/avalara)
+
+## Fork Notes
+
+This gem was forked from the main project to support Hashie 3.2.0. Other changes:
+
+1) Support Hashie 3.2.0 by using the IndifferentAccess extension.
+2) Start full re-write of specifications due to legacy usage of VCR, FactoryGirl, etc.
 
 ## Setup
 
@@ -12,7 +19,7 @@ Add the gem to your `Gemfile`.
 gem 'avalara'
 ```
 
-Setup your Avalara credentials, either in a yml file, or as environment variables. If you want to add a yml file, it'll just need `username` and `password`:
+Setup your Avalara credentials, in ```spec/avalara_config.yml```.
 
 ```
 username: 'testaccount'
