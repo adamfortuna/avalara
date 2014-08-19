@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path('../lib', __FILE__)
+
 require 'avalara/version'
 
 Gem::Specification.new do |s|
@@ -16,12 +17,9 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'hashie'
+  s.add_dependency 'hashie',    '3.2.0'
   s.add_dependency 'httparty'
   s.add_dependency 'multi_json'
 
-  s.add_development_dependency 'vcr'
-  s.add_development_dependency 'webmock'
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'factory_girl'
 end
