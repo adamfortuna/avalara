@@ -89,7 +89,9 @@ module Avalara
       when 200..299
         Response::Invoice.new(response)
       when 400..599
-        raise ApiError.new(Response::Invoice.new(response))
+        e = ApiError.new(response)
+        e.payload = Response::Invoice.new(response)
+        raise e
       else
         raise ApiError.new(response)
     end

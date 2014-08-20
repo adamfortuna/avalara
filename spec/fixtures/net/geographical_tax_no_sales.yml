@@ -1,0 +1,82 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://%{API_USERNAME}:%{API_PASSWORD}@development.avalara.net:443/1.0/tax/47.627935,-122.51702/get?saleamount=100
+    body: 
+    headers:
+      date:
+      - Wed, 20 Aug 2014 15:03:42 GMT
+      user-agent:
+      - avalara/0.0.3 (Rubygems; Ruby 1.9.3 x86_64-darwin13.3.0)
+      content-length:
+      - '0'
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - private
+      content-type:
+      - text/json; charset=utf-8
+      x-aspnet-version:
+      - 4.0.30319
+      x-powered-by:
+      - ASP.NET
+      date:
+      - Wed, 20 Aug 2014 15:04:31 GMT
+      content-length:
+      - '356'
+      set-cookie:
+      - TS6198e2=1e1d2a6a52a4aebc874c938763345425b83f48de683706e953f4b8d1; Path=/
+      - TS6198e2_28=1fef2e472a32dda12c726faa2096df35b83f48de683706e900000000000000000053f4b8d17b790ef7686e94e7;
+        Path=/
+    body: ! '{
+
+      "Rate": 0.087,
+
+      "Tax": 8.7,
+
+      "TaxDetails": [
+
+      {
+
+      "Country": "US",
+
+      "Region": "WA",
+
+      "JurisType": "State",
+
+      "Rate": 0.065,
+
+      "Tax": 6.5,
+
+      "JurisName": "WASHINGTON",
+
+      "TaxName": "WA STATE TAX"}
+
+      ,{
+
+      "Country": "US",
+
+      "Region": "WA",
+
+      "JurisType": "City",
+
+      "Rate": 0.022,
+
+      "Tax": 2.2,
+
+      "JurisName": "BAINBRIDGE ISLAND",
+
+      "TaxName": "WA CITY TAX"}
+
+      ]
+
+      ,
+
+      "ResultCode": "Success"}
+
+'
+    http_version: '1.1'

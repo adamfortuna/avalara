@@ -112,7 +112,7 @@ describe Avalara do
           begin
             request
           rescue Avalara::ApiError => e
-            e.message.messages.first
+            e.payload.messages.first
           end
         end
         
@@ -196,9 +196,13 @@ describe Avalara do
 
     subject { Avalara.geographical_tax(latitude, longitude, sales_amount) }
     use_vcr_cassette 'geographical_tax_no_sales'
+
+    it 'should be a Avalara::Response::Tax' do
+      subject.should be_a(Avalara::Response::Tax)
+    end
   
-    it "returns a rate of 0" do
-      expect { subject }.to raise_error(Avalara::NotImplementedError)
+    it "returns a tax of 8.7" do
+      subject.tax.should == 8.7
     end
   end
 end

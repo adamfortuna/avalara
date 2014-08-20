@@ -2,9 +2,9 @@ PATH
   remote: .
   specs:
     avalara (0.0.3)
-      hashie
-      httparty
-      multi_json
+      hashie (~> 3.2)
+      httparty (= 0.11.0)
+      multi_json (~> 1.8)
 
 GEM
   remote: http://rubygems.org/
@@ -13,17 +13,33 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.2.6)
+    coderay (1.1.0)
+    columnize (0.8.9)
     crack (0.3.1)
+    debugger (1.6.8)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.3.5)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.3.5)
     diff-lcs (1.1.3)
     factory_girl (2.5.0)
       activesupport
-    hashie (2.0.5)
+    hashie (3.2.0)
     httparty (0.11.0)
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
     i18n (0.6.0)
+    method_source (0.8.2)
     multi_json (1.8.0)
     multi_xml (0.5.5)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-debugger (0.2.3)
+      debugger (~> 1.3)
+      pry (>= 0.9.10, < 0.11.0)
     rake (0.9.2.2)
     rspec (2.8.0)
       rspec-core (~> 2.8.0)
@@ -33,6 +49,7 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
+    slop (3.6.0)
     vcr (1.11.3)
     webmock (1.7.10)
       addressable (~> 2.2, > 2.2.5)
@@ -44,6 +61,8 @@ PLATFORMS
 DEPENDENCIES
   avalara!
   factory_girl
+  pry
+  pry-debugger
   rake
   rspec
   vcr
