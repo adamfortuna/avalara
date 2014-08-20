@@ -1,2 +1,3 @@
 username: 'testaccount'
 password: 'testkey'
+endpoint: 'https://development.avalara.net'

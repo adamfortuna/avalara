@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
-require 'hashie/trash'
-require 'hashie/extensions/coercion'
+require 'hashie'
 
 module Avalara
   module Types
@@ -14,11 +13,11 @@ module Avalara
     # available, locally.
     #
     class Stash < ::Hashie::Trash
+      include Hashie::Extensions::DeepMerge
+      include Hashie::Extensions::IndifferentAccess
       include Hashie::Extensions::Coercion
 
-
       private
-
 
       def property_exists?(property)
         self.class.property?(property.to_sym)
