@@ -16,9 +16,7 @@ module Avalara
     class Stash < ::Hashie::Trash
       include Hashie::Extensions::Coercion
 
-
       private
-
 
       def property_exists?(property)
         self.class.property?(property.to_sym)

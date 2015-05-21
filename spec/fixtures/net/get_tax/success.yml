@@ -2,7 +2,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :post
-    uri: https://%{API_USERNAME}:%{API_PASSWORD}@development.avalara.net:443/1.0/tax/get
+    uri: https://%{API_USERNAME}:%{API_PASSWORD}@rest.avalara.net:443/1.0/tax/get
     body: |-
       {
         "CustomerCode": 1,

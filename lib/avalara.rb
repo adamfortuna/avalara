@@ -26,7 +26,7 @@ module Avalara
   def self.configure(&block)
     configuration(&block)
   end
-  
+
   def self.endpoint
     configuration.endpoint
   end
@@ -54,17 +54,17 @@ module Avalara
   def self.version=(version)
     configuration.version = version
   end
-  
+
   def self.geographical_tax(latitude, longitude, sales_amount)
     uri = [
-      configuration.endpoint, 
-      configuration.version, 
-      "tax", 
+      configuration.endpoint,
+      configuration.version,
+      "tax",
       "#{latitude},#{longitude}",
       "get"
     ].join("/")
-    
-    response = API.get(uri, 
+
+    response = API.get(uri,
       :headers    => API.headers_for('0'),
       :query      => {:saleamount => sales_amount},
       :basic_auth => authentication
@@ -75,11 +75,11 @@ module Avalara
     puts "Timed out"
     raise TimeoutError
   end
-    
+
   def self.get_tax(invoice)
     uri = [endpoint, version, 'tax', 'get'].join('/')
 
-    response = API.post(uri, 
+    response = API.post(uri,
       :body => invoice.to_json,
       :headers => API.headers_for(invoice.to_json.length),
       :basic_auth => authentication
@@ -100,7 +100,7 @@ module Avalara
   rescue Exception => e
     raise Error.new(e)
   end
-  
+
   private
 
   def self.authentication
