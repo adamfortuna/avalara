@@ -2,7 +2,7 @@
 
 This API provides access to the [Avalara](http://www.avalara.com/) AvaTax API.
 
-[![Build Status](https://travis-ci.org/adamfortuna/avalara.png)](https://travis-ci.org/adamfortuna/avalara)
+[![Build Status](https://travis-ci.org/orenf/avalara.svg?branch=master)](https://travis-ci.org/orenf/avalara)
 
 ## Setup
 
