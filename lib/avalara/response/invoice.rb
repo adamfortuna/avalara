@@ -1,8 +1,11 @@
 # encoding: UTF-8
 
+require 'hashie/extensions/symbolize_keys'
+
 module Avalara
   module Response
     class Invoice < Avalara::Types::Stash
+
       property :doc_code, :from => :DocCode
       property :doc_date, :from => :DocDate
       property :timestamp, :from => :Timestamp
@@ -18,31 +21,35 @@ module Avalara
       property :result_code, :from => :ResultCode
       property :messages, :from => :Messages
 
+      def initialize(response)
+        super(Hashie::Extensions::SymbolizeKeys.symbolize_keys(response))
+      end
+
       def success?
         result_code == 'Success'
       end
-      
+
       def Messages=(new_messages)
         self.messages = []
         new_messages.each do |message|
           self.messages << Message.new(message)
         end
       end
-    
+
       def TaxLines=(lines)
         self.tax_lines = []
         lines.each do |line|
           self.tax_lines << TaxLine.new(line)
         end
       end
-      
+
       def TaxAddresses=(addresses)
         self.tax_addresses = []
         addresses.each do |address|
           self.tax_addresses << TaxAddress.new(address)
         end
       end
-      
+
     end
   end
 end

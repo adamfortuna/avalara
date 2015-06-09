@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'hashie'
-  s.add_dependency 'httparty'
+  s.add_dependency 'httparty', '~> 0.13.5'
   s.add_dependency 'multi_json'
 
   s.add_development_dependency 'vcr'
