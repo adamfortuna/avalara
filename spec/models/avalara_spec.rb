@@ -66,7 +66,7 @@ describe Avalara do
       }.to change(configuration, :username).to('username')
     end
   end
-  
+
   describe '.password' do
     it 'returns the configuration password' do
       configuration.password = 'password'
@@ -98,7 +98,7 @@ describe Avalara do
     let(:invoice) { Factory.build_via_new(:invoice, doc_date: doc_date) }
     let(:request) { Avalara.get_tax(invoice) }
     subject { request }
-    
+
     context 'failure' do
       let(:invoice) { Factory.build_via_new(:invoice, customer_code: nil) }
       use_vcr_cassette 'get_tax/failure'
@@ -106,7 +106,7 @@ describe Avalara do
       it 'rasises an error' do
         expect { subject }.to raise_error(Avalara::ApiError)
       end
-      
+
       context 'the returned error' do
         subject do
           begin
@@ -115,7 +115,7 @@ describe Avalara do
             e.message.messages.first
           end
         end
-        
+
         its(:details) { should == "This value must be specified." }
         its(:refers_to) { should == "CustomerCode" }
         its(:severity) { should == "Error" }
@@ -123,7 +123,7 @@ describe Avalara do
         its(:summary) { should == "CustomerCode is required." }
       end
     end
-    
+
     context 'on timeout' do
       it 'raises an avalara timeout error' do
         Avalara::API.should_receive(:post).and_raise(Timeout::Error)
@@ -133,9 +133,9 @@ describe Avalara do
 
     context 'success' do
       use_vcr_cassette 'get_tax/success'
-    
+
       it { should be_kind_of Avalara::Response::Invoice }
-    
+
       its(:doc_code) { should_not be_nil }
       its(:doc_date) { should == "2012-01-01" }
       its(:result_code) { should == "Success" }
@@ -146,7 +146,7 @@ describe Avalara do
       its(:total_exemption) { should == "10" }
       its(:total_tax) { should == "0" }
       its(:total_tax_calculated) { should == "0" }
-    
+
       it 'returns 1 tax line' do
         subject.tax_lines.length.should == 1
       end
@@ -154,11 +154,11 @@ describe Avalara do
       it 'returns 1 tax address' do
         subject.tax_addresses.length.should == 1
       end
-    
+
       context 'the returned tax line' do
         let(:tax_line) { request.tax_lines.first }
         subject { tax_line }
-      
+
         its(:line_no) { should == "1" }
         its(:tax_code) { should == "P0000000" }
         its(:taxability) { should == "true" }
@@ -168,11 +168,11 @@ describe Avalara do
         its(:discount) { should == "0" }
         its(:tax_calculated) { should == "0" }
         its(:exemption) { should == "10" }
-      
+
         it 'returns 1 tax detail' do
           subject.tax_details.length.should == 1
         end
-      
+
         context 'the returned tax detail' do
           subject { tax_line.tax_details.first }
 
@@ -189,16 +189,16 @@ describe Avalara do
     end
   end
 
+  ## Missing VCR
   describe '.geographical_tax' do
     let(:latitude) { '47.627935' }
     let(:longitude) { '-122.51702' }
     let(:sales_amount) { 100 }
 
     subject { Avalara.geographical_tax(latitude, longitude, sales_amount) }
+
     use_vcr_cassette 'geographical_tax_no_sales'
-  
-    it "returns a rate of 0" do
-      expect { subject }.to raise_error(Avalara::NotImplementedError)
-    end
+
+    its(:rate) { should == 0.087 }
   end
 end
