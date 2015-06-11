@@ -1,3 +1,17 @@
+# 0.1.1 - June 11, 2015 - Added license
+
+Added MIT license.
+
+# 0.1.0 - June 11, 2015 - Ruby Support
+
+Great work @orenf
+Removes support for ruby 1.9.2 and 1.8.7
+Upgrades httparty
+Runs on ruby 2.2.1
+Fixes failing specs
+APIError message now returns valid Invoice object
+
+
 # 0.0.3 - October 4, 2013 - Updated multi_json gem
 
 The multi_json gem was way out of date, but https://github.com/imajes
