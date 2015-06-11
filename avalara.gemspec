@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/adamfortuna/avalara'
   s.summary     = %q{A Ruby interface to the Avalara Tax API}
   s.description = %q{This library provides Ruby calls to interact with the Avalara Tax API}
+  s.license     = 'MIT'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
