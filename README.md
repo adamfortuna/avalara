@@ -8,26 +8,26 @@ This API provides access to the [Avalara](http://www.avalara.com/) AvaTax API.
 
 Add the gem to your `Gemfile`.
 
-```
+```ruby
 gem 'avalara'
 ```
 
 Setup your Avalara credentials, either in a yml file, or as environment variables. If you want to add a yml file, it'll just need `username` and `password`:
 
-```
+```yaml
 username: 'testaccount'
 password: 'testkey'
 ```
 
 You can also specify a different endpoint for development mode:
 
-```
-https://development.avalara.net
+```yaml
+endpoint: https://development.avalara.net
 ```
 
 Setup the gem in an initializer (if using Rails), or wherever if you're not. You can load in your username/password however you want, but here's a sample way to do this:
 
-```
+```ruby
 file = File.new(File.join(Rails.root, 'config', 'avalara.yml'))
 
 if file.exist?
@@ -51,7 +51,7 @@ After that you should be able to use a few endpoints to Avalaras tax service. If
 
 ### Geographical Tax
 
-```
+```ruby
 result = Avalara.geographical_tax('47.627935', '-122.51702', 100)
 
 # Access the details of the result, which is a Avalara::Response::Tax object
@@ -62,7 +62,7 @@ result.tax_details
 
 ### Get Tax
 
-```
+```ruby
 line = Avalara::Request::Line.new({  
   line_no: "1",
   destination_code: "1",
