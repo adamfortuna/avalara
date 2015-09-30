@@ -100,5 +100,5 @@ result.total_tax_calculated
 If you want to contribute, please fork this repo and make a pull request back. If you add some specs and everything still passes, we can get your contribution in! Thanks to everyone who has contributed:
 
 * [Adam Fortuna](http://github.com/adamfortuna)
-* [James Cox](http://github.com/adamfortuna)
+* [James Cox](https://github.com/imajes)
 * [Dan Sosedoff](http://github.com/sosedoff)
