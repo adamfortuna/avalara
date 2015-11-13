@@ -18,6 +18,8 @@ module Avalara
     @@_configuration
   end
 
+#change
+
   def self.configuration=(configuration)
     raise ArgumentError, 'Expected a Avalara::Configuration instance' unless configuration.kind_of?(Configuration)
     @@_configuration = configuration
