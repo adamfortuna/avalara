@@ -54,6 +54,45 @@ describe Avalara do
     end
   end
 
+  describe '.timeout' do
+    it 'returns the configuration timeout' do
+      configuration.timeout = 10
+      Avalara.timeout.should == configuration.timeout
+    end
+
+    it 'overrides the configuration timeout' do
+      expect {
+        Avalara.timeout = 10
+      }.to change(configuration, :timeout).to(10)
+    end
+  end
+
+  describe '.open_timeout' do
+    it 'returns the configuration timeout' do
+      configuration.open_timeout = 10
+      Avalara.open_timeout.should == configuration.open_timeout
+    end
+
+    it 'overrides the configuration open_timeout' do
+      expect {
+        Avalara.open_timeout = 10
+      }.to change(configuration, :open_timeout).to(10)
+    end
+  end
+
+  describe '.read_timeout' do
+    it 'returns the configuration timeout' do
+      configuration.read_timeout = 10
+      Avalara.read_timeout.should == configuration.read_timeout
+    end
+
+    it 'overrides the configuration timeout' do
+      expect {
+        Avalara.read_timeout = 10
+      }.to change(configuration, :read_timeout).to(10)
+    end
+  end
+
   describe '.username' do
     it 'returns the configuration username' do
       configuration.username = 'username'
@@ -121,6 +160,55 @@ describe Avalara do
         its(:severity) { should == "Error" }
         its(:source) { should == "Avalara.AvaTax.Services" }
         its(:summary) { should == "CustomerCode is required." }
+      end
+    end
+
+    context 'with a timeout' do
+
+      before do
+        WebMock.allow_net_connect!
+        Avalara.timeout = 1
+        Avalara.endpoint = "http://10.255.255.1"
+      end
+
+      it 'raises an avalara timeout error' do
+        expect { subject }.to raise_error(Avalara::TimeoutError)
+      end
+    end
+
+    context 'with an open timeout' do
+
+      before do
+        WebMock.allow_net_connect!
+        Avalara.open_timeout = 1
+        Avalara.endpoint = "http://10.255.255.1"
+      end
+
+      it 'raises an avalara timeout error' do
+        expect { subject }.to raise_error(Avalara::TimeoutError)
+      end
+    end
+
+    context 'with a read timeout' do
+      let(:dummy) { TimeoutServer.new }
+
+      before(:all) do
+        dummy.listen(TimeoutServer::CONFIG[:BindAddress], TimeoutServer::CONFIG[:Port])
+        Thread.new { dummy.start }
+      end
+
+      before do
+        WebMock.allow_net_connect!
+        Avalara.read_timeout = 1
+        Avalara.endpoint = dummy.endpoint
+      end
+
+      after(:all) do
+        dummy.shutdown
+      end
+
+      it 'raises an avalara timeout error' do
+        expect { subject }.to raise_error(Avalara::TimeoutError)
       end
     end
 
