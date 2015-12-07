@@ -1,4 +1,4 @@
-Factory.define :address, :class => Avalara::Request::Address do |c|
+Factory.define :address, class: Avalara::Request::Address do |c|
   c.address_code 1
   c.line_1 "435 Ericksen Avenue Northeast"
   c.line_2 "#250"

@@ -6,20 +6,20 @@ module Avalara
   module Response
     class Invoice < Avalara::Types::Stash
 
-      property :doc_code, :from => :DocCode
-      property :doc_date, :from => :DocDate
-      property :timestamp, :from => :Timestamp
-      property :total_amount, :from => :TotalAmount
-      property :total_discount, :from => :TotalDiscount
-      property :total_exemption, :from => :TotalExemption
-      property :total_taxable, :from => :TotalTaxable
-      property :total_tax, :from => :TotalTax
-      property :total_tax_calculated, :from => :TotalTaxCalculated
-      property :tax_date, :from => :TaxDate
-      property :tax_lines, :from => :TaxLines
-      property :tax_addresses, :from => :TaxAddresses
-      property :result_code, :from => :ResultCode
-      property :messages, :from => :Messages
+      property :doc_code, from: :DocCode
+      property :doc_date, from: :DocDate
+      property :timestamp, from: :Timestamp
+      property :total_amount, from: :TotalAmount
+      property :total_discount, from: :TotalDiscount
+      property :total_exemption, from: :TotalExemption
+      property :total_taxable, from: :TotalTaxable
+      property :total_tax, from: :TotalTax
+      property :total_tax_calculated, from: :TotalTaxCalculated
+      property :tax_date, from: :TaxDate
+      property :tax_lines, from: :TaxLines
+      property :tax_addresses, from: :TaxAddresses
+      property :result_code, from: :ResultCode
+      property :messages, from: :Messages
 
       def initialize(response)
         super(Hashie::Extensions::SymbolizeKeys.symbolize_keys(response))

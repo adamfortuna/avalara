@@ -1,4 +1,4 @@
-Factory.define :invoice, :class => Avalara::Request::Invoice do |c|
+Factory.define :invoice, class: Avalara::Request::Invoice do |c|
   c.customer_code 1
   c.doc_date Time.now
   c.company_code 83

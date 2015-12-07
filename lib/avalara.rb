@@ -65,9 +65,9 @@ module Avalara
     ].join("/")
 
     response = API.get(uri,
-      :headers    => API.headers_for('0'),
-      :query      => {:saleamount => sales_amount},
-      :basic_auth => authentication
+      headers: API.headers_for('0'),
+      query: {saleamount: sales_amount},
+      basic_auth: authentication
     )
 
     Avalara::Response::Tax.new(response)
@@ -80,9 +80,9 @@ module Avalara
     uri = [endpoint, version, 'tax', 'get'].join('/')
 
     response = API.post(uri,
-      :body => invoice.to_json,
-      :headers => API.headers_for(invoice.to_json.length),
-      :basic_auth => authentication
+      body: invoice.to_json,
+      headers: API.headers_for(invoice.to_json.length),
+      basic_auth: authentication
     )
 
     return case response.code
@@ -104,6 +104,6 @@ module Avalara
   private
 
   def self.authentication
-    { :username => username, :password => password}
+    { username: username, password: password}
   end
 end
