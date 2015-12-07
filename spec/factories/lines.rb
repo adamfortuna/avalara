@@ -1,4 +1,4 @@
-Factory.define :line, :class => Avalara::Request::Line do |c|
+Factory.define :line, class: Avalara::Request::Line do |c|
   c.line_no "1"
   c.destination_code "1"
   c.origin_code "1"
