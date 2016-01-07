@@ -7,3 +7,5 @@ before_script:
   - cp spec/avalara.yml.example spec/avalara.yml
 notifications:
   email: false
+before_install:
+  - gem install bundler
