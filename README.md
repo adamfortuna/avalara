@@ -102,3 +102,4 @@ If you want to contribute, please fork this repo and make a pull request back. I
 * [Adam Fortuna](http://github.com/adamfortuna)
 * [James Cox](https://github.com/imajes)
 * [Dan Sosedoff](http://github.com/sosedoff)
+* [Leo Correa](https://github.com/Tonkpils)
