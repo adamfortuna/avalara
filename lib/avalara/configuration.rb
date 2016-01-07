@@ -3,6 +3,9 @@
 class Avalara::Configuration
 
   attr_writer :endpoint
+  attr_accessor :timeout
+  attr_accessor :read_timeout
+  attr_accessor :open_timeout
   attr_accessor :password
   attr_accessor :username
   attr_writer :version
@@ -12,7 +15,7 @@ class Avalara::Configuration
   # set, the endpoint will default to the official production endpoint at
   # 'https://rest.avalara.net'.
   #
-  # If you want to set this to the test endpoint, use 'https://development.avalara.net' 
+  # If you want to set this to the test endpoint, use 'https://development.avalara.net'
   #
   # Returns the String for the API endpoint.
   #

@@ -27,6 +27,30 @@ module Avalara
     configuration(&block)
   end
 
+  def self.timeout
+    configuration.timeout
+  end
+
+  def self.timeout=(timeout)
+    configuration.timeout = timeout
+  end
+
+  def self.read_timeout
+    configuration.read_timeout
+  end
+
+  def self.read_timeout=(read_timeout)
+    configuration.read_timeout = read_timeout
+  end
+
+  def self.open_timeout
+    configuration.open_timeout
+  end
+
+  def self.open_timeout=(open_timeout)
+    configuration.open_timeout = open_timeout
+  end
+
   def self.endpoint
     configuration.endpoint
   end
@@ -64,10 +88,13 @@ module Avalara
       "get"
     ].join("/")
 
-    response = API.get(uri,
-      :headers    => API.headers_for('0'),
-      :query      => {:saleamount => sales_amount},
-      :basic_auth => authentication
+    response = API.get(
+      uri,
+      {
+        :headers    => API.headers_for('0'),
+        :query      => {:saleamount => sales_amount},
+        :basic_auth => authentication
+      }.merge!(net_settings)
     )
 
     Avalara::Response::Tax.new(response)
@@ -79,10 +106,13 @@ module Avalara
   def self.get_tax(invoice)
     uri = [endpoint, version, 'tax', 'get'].join('/')
 
-    response = API.post(uri,
-      :body => invoice.to_json,
-      :headers => API.headers_for(invoice.to_json.length),
-      :basic_auth => authentication
+    response = API.post(
+      uri,
+      {
+        :body => invoice.to_json,
+        :headers => API.headers_for(invoice.to_json.length),
+        :basic_auth => authentication
+      }.merge!(net_settings)
     )
 
     return case response.code
@@ -102,6 +132,17 @@ module Avalara
   end
 
   private
+
+  def self.net_settings
+    settings = {}
+    if timeout
+      settings[:read_timeout] = timeout
+      settings[:open_timeout] = timeout
+    end
+    settings[:read_timeout] = read_timeout if read_timeout
+    settings[:open_timeout] = open_timeout if open_timeout
+    settings
+  end
 
   def self.authentication
     { :username => username, :password => password}
