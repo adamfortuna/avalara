@@ -277,6 +277,69 @@ describe Avalara do
     end
   end
 
+  describe ".validate_address" do
+    let(:address) { {
+      Line1: "122 Hudson St",
+      City: "New York",
+      Region: "NY",
+      Country: "US",
+    } }
+
+    def request(address)
+      Avalara.validate_address(address)
+    rescue Avalara::ApiError => e
+      e
+    end
+
+    context "on success" do
+
+      context "and an ambiguous city" do
+        use_vcr_cassette "validate_address/success_ambiguous"
+
+        before do
+          address[:City] = "NY"
+        end
+
+        it "resolves the ambiguity on the city" do
+          response = request(address)
+          response.address.city.should eq("New York")
+        end
+
+        it "is a successful request" do
+          response = request(address)
+          response.result_code.should eq("Success")
+        end
+      end
+    end
+
+    context "with an error returned from the api" do
+      use_vcr_cassette "validate_address/failure"
+
+      before do
+        address[:City] = "Miami"
+      end
+
+      it "raises an error" do
+        expect { Avalara.validate_address(address) }.to raise_error(Avalara::ApiError)
+      end
+
+      it "returns messages with details" do
+        response = request(address)
+        response.message.messages.length.should == 2
+
+        errors = response.message.messages
+        city_error = errors[0]
+        city_error.refers_to.should == "Address.City"
+        city_error.summary.should match(/city could not be determined/)
+        city_error.severity.should == "Error"
+
+        address_geocoded_error = errors[1]
+        address_geocoded_error.refers_to.should == "Address"
+        address_geocoded_error.severity.should == "Error"
+      end
+    end
+  end
+
   ## Missing VCR
   describe '.geographical_tax' do
     let(:latitude) { '47.627935' }

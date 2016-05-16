@@ -3,7 +3,7 @@
   request: !ruby/struct:VCR::Request
     method: :get
     uri: https://%{API_USERNAME}:%{API_PASSWORD}@development.avalara.net:443/1.0/tax/47.627935,-122.51702/get?saleamount=100
-    body: 
+    body:
     headers:
       accept:
       - application/json
