@@ -1,0 +1,106 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://%{API_USERNAME}:%{API_PASSWORD}@development.avalara.net:443/1.0/address/validate?City=New%20York&Country=US&Line1=122%20Hudson%20St&Region=NY
+    body:
+    headers:
+      accept:
+      - application/json
+      content-type:
+      - text/json
+      date:
+      - Mon, 16 May 2016 21:16:56 GMT
+      user-agent:
+      - avalara/0.2.0 (Rubygems; Ruby 2.3.0 x86_64-darwin15)
+      content-length:
+      - '0'
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - private
+      content-type:
+      - text/json; charset=utf-8
+      server:
+      - Microsoft-IIS/7.5
+      x-aspnet-version:
+      - 4.0.30319
+      x-powered-by:
+      - ASP.NET
+      date:
+      - Mon, 16 May 2016 21:19:32 GMT
+      content-length:
+      - '268'
+    body: |
+      {
+      "ResultCode": "Success",
+      "Address": {
+      "Line1": "122 Hudson St",
+      "City": "New York",
+      "Region": "NY",
+      "PostalCode": "10013-2355",
+      "Country": "US",
+      "County": "NEW YORK",
+      "FipsCode": "3606151000",
+      "CarrierRoute": "C006",
+      "PostNet": "100132355992",
+      "AddressType": "H"}
+      }
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://%{API_USERNAME}:%{API_PASSWORD}@development.avalara.net:443/1.0/address/validate?City=Miami&Country=US&Line1=122%20Hudson%20St&Region=NY
+    body:
+    headers:
+      accept:
+      - application/json
+      content-type:
+      - text/json
+      date:
+      - Mon, 16 May 2016 21:21:26 GMT
+      user-agent:
+      - avalara/0.2.0 (Rubygems; Ruby 2.3.0 x86_64-darwin15)
+      content-length:
+      - '0'
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 500
+      message: Internal Server Error
+    headers:
+      cache-control:
+      - private
+      content-type:
+      - text/json; charset=utf-8
+      server:
+      - Microsoft-IIS/7.5
+      x-aspnet-version:
+      - 4.0.30319
+      x-powered-by:
+      - ASP.NET
+      date:
+      - Mon, 16 May 2016 21:24:01 GMT
+      content-length:
+      - '431'
+    body: |
+      {
+      "ResultCode": "Error",
+      "Messages": [
+      {
+      "Summary": "The city could not be determined.",
+      "Details": "The city could not be found or determined from postal code.",
+      "RefersTo": "Address.City",
+      "Severity": "Error",
+      "Source": "Avalara.AvaTax.Services.Address"}
+      ,{
+      "Summary": "Address not geocoded.",
+      "Details": "Address cannot be geocoded.",
+      "RefersTo": "Address",
+      "Severity": "Error",
+      "Source": "Avalara.AvaTax.Services.Address"}
+      ]
+      }
+    http_version: '1.1'

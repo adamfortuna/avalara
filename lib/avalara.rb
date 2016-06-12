@@ -115,13 +115,13 @@ module Avalara
       }.merge!(net_settings)
     )
 
-    return case response.code
-      when 200..299
-        Response::Invoice.new(response)
-      when 400..599
-        raise ApiError.new(Response::Invoice.new(response))
-      else
-        raise ApiError.new(response)
+    case response.code
+    when 200..299
+      Response::Invoice.new(response)
+    when 400..599
+      raise ApiError.new(Response::Invoice.new(response))
+    else
+      raise ApiError.new(response)
     end
   rescue Timeout::Error => e
     raise TimeoutError.new(e)
@@ -129,6 +129,28 @@ module Avalara
     raise e
   rescue Exception => e
     raise Error.new(e)
+  end
+
+  def self.validate_address(address_hash)
+    uri = [endpoint, version, "address", "validate"].join("/")
+    response = API.get(
+      uri,
+      {
+        query: address_hash,
+        headers: API.headers_for('0'),
+        basic_auth: authentication
+      }.merge!(net_settings)
+    )
+    case response.code
+    when 200..299
+      Response::Address.new(response)
+    when 400..599
+      fail ApiError.new(Response::Address.new(response))
+    else
+      fail ApiError.new(response)
+    end
+  rescue Timeout::Error => e
+    raise TimeoutError.new(e)
   end
 
   private
