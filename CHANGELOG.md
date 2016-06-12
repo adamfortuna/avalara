@@ -1,6 +1,7 @@
 ## 0.2.0 - January 7, 2016 - Added Timeout
 
 Added the ability to have set timeouts for open and read connections.
+Add address validation API.
 
 ## 0.1.1 - June 11, 2015 - Added license
 

@@ -86,7 +86,7 @@ invoice = Avalara::Request::Invoice.new({
 })
 
 # You'll get back a Response::Invoice object
-result = Avalara.get_tax(invoice) 
+result = Avalara.get_tax(invoice)
 
 result.result_code
 result.total_amount
